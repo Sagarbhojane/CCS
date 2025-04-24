@@ -1,0 +1,73 @@
+import java.math.BigInteger;
+import java.util.Scanner;
+// name:-Sagar bhojane 
+// Class:-TYA Roll no:-16
+public class RSA {
+    
+  
+    public static int gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    
+    public static BigInteger modExp(BigInteger base, BigInteger exp, BigInteger mod) {
+        return base.modPow(exp, mod);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+     
+        System.out.print("Enter a prime number (p): ");
+        int p = scanner.nextInt();
+        
+        System.out.print("Enter another prime number (q): ");
+        int q = scanner.nextInt();
+        int n = p * q;      
+        int phi = (p - 1) * (q - 1); 
+
+        int e = 2;
+        while (e < phi && gcd(e, phi) != 1) {
+            e++;
+        }
+
+      
+        int d = 1;
+        while ((d * e) % phi != 1) {
+            d++;
+        }
+
+      
+        System.out.println("\nPublic Key: (" + e + ", " + n + ")");
+        System.out.println("Private Key: (" + d + ", " + n + ")");
+
+        System.out.print("\nEnter a number to encrypt (should be < " + n + "): ");
+        int message = scanner.nextInt();
+
+        scanner.close();
+
+        
+        BigInteger encrypted = modExp(BigInteger.valueOf(message), BigInteger.valueOf(e), BigInteger.valueOf(n));
+        System.out.println("Encrypted message: " + encrypted);
+
+    
+        BigInteger decrypted = modExp(encrypted, BigInteger.valueOf(d), BigInteger.valueOf(n));
+        System.out.println("Decrypted message: " + decrypted);
+    }
+}
+  
+//output
+//*r a prime number (p): 11
+//ter another prime number (q): 17
+
+//blic Key: (3, 187)
+//ivate Key: (107, 187)
+ 
+//ter a number to encrypt (should be < 187): 58
+//crypted message: 71
+//crypted message: 58  
