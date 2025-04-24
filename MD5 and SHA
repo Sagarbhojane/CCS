@@ -1,0 +1,5 @@
+import hashlib
+msg = "welcome"
+result = hashlib.sha256(msg.encode())
+print("Output is : ",end ="")
+print(result.hexdigest())
