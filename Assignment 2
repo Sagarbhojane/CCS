@@ -1,0 +1,41 @@
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class DiffieHellman {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter a prime number (p): ");
+        BigInteger p = scanner.nextBigInteger(); 
+
+        System.out.print("Enter a generator (g): ");
+        BigInteger g = scanner.nextBigInteger(); 
+
+        
+        System.out.print("Enter Alice's private key: ");
+        BigInteger a = scanner.nextBigInteger();
+
+        System.out.print("Enter Bob's private key: ");
+        BigInteger b = scanner.nextBigInteger();
+
+        
+        BigInteger A = g.modPow(a, p);
+        BigInteger B = g.modPow(b, p); 
+
+        
+        BigInteger sharedSecretAlice = B.modPow(a, p); 
+        BigInteger sharedSecretBob = A.modPow(b, p);   
+
+        System.out.println("\nPublic prime (p): " + p);
+        System.out.println("Generator (g): " + g);
+        System.out.println("Alice's public key (A): " + A);
+        System.out.println("Bob's public key (B): " + B);
+        System.out.println("Alice's computed shared secret: " + sharedSecretAlice);
+        System.out.println("Bob's computed shared secret: " + sharedSecretBob);
+
+
+        System.out.println("Shared secret match: " + sharedSecretAlice.equals(sharedSecretBob));
+
+        scanner.close();
+    }
+}
